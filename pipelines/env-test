@@ -1,9 +1,9 @@
 
 pipeline {
-    agent any {
-        jdk = tool name: 'temerin-17.jdk'
-    }
+    agent any
     stages {
+      jdk = tool name: 'JDK17'
+      env.JAVA_HOME = "${jdk}"
         stage('Environment Setup') {
             steps {
                 script {
