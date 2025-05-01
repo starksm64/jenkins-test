@@ -5,7 +5,6 @@ pipeline {
         jdk 'temurin-17.jdk'
     }
     stages {
-      env.JAVA_HOME = "${jdk}"
         stage('Environment Setup') {
             steps {
                 script {
