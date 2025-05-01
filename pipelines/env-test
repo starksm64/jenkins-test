@@ -1,8 +1,13 @@
 
 pipeline {
     agent any
+    parameters {
+        string(name: 'VERSION', defaultValue: '1.0-SNAPSHOT', description: 'What version to build?')
+        choice(name: 'JDK', choices: ['temurin-17.jdk', 'temurin-21.jdk'], description: 'JDK Version')
+    }
+
     tools {
-        jdk 'temurin-17.jdk'
+        jdk ${params.JDK}
         maven 'maven-3.9.9'
     }
     stages {
@@ -11,14 +16,13 @@ pipeline {
                 script {
                     echo "${env.BUILD_ID}"
                     echo "${env.JAVA_HOME}"
-                    // Add your build commands here
                 }
-            }
+            }f
         }
         stage('Versions') {
             steps {
                 script {
-                    echo "Executing commands..."
+                    echo "Executing commands for versions..."
                     sh '''
                         env | grep -e PATH -e JAVA_HOME
                         $JAVA_HOME/bin/java -version
