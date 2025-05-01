@@ -1,7 +1,11 @@
 #!groovy
 
 pipeline {
-    agent any
+    agent any {
+        tools {
+            jdk "temerin-17.jdk"
+        }
+    }
     stages {
         stage('Environment Setup') {
             steps {
