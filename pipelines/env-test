@@ -1,10 +1,7 @@
-#!groovy
 
 pipeline {
     agent any {
-        tools {
-            jdk "temerin-17.jdk"
-        }
+        jdk = tool name: 'temerin-17.jdk'
     }
     stages {
         stage('Environment Setup') {
@@ -21,6 +18,7 @@ pipeline {
                 script {
                     echo "Executing commands..."
                     sh '''
+                        env | grep -e PATH -e JAVA_HOME
                         $JAVA_HOME/bin/java -version
                         mvn --version
                     '''
