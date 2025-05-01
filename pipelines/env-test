@@ -1,0 +1,35 @@
+#!groovy
+
+pipeline {
+    agent any
+    stages {
+        stage('Environment Setup') {
+            steps {
+                script {
+                    echo "${env.BUILD_ID}"
+                    echo "${env.JAVA_HOME}"
+                    // Add your build commands here
+                }
+            }
+        }
+        stage('Versions') {
+            steps {
+                script {
+                    echo "Executing commands..."
+                    sh '''
+                        $JAVA_HOME/bin/java -version
+                        mvn --version
+                    '''
+                }
+            }
+        }
+    }
+    post {
+        always {
+            script {
+                echo "Cleaning up..."
+                // Add your cleanup commands here
+            }
+        }
+    }
+}
